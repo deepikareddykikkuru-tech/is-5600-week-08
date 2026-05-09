@@ -1,6 +1,6 @@
 const fs = require('fs/promises');
-const { create: createProduct, destroy } = require('../../products');
-const { create: createOrder } = require('../../orders');
+const { create: createProduct, destroy: destroyProduct } = require('../../products');
+const { create: createOrder, destroy: destroyOrder } = require('../../orders');
 
 const productTestHelper = {
   testProductIds: [],
@@ -22,15 +22,14 @@ const productTestHelper = {
   },
 
   async cleanupTestData() {
-    console.log('Cleaning up test products...');
-    for (const productId of this.testProductIds) {
-      await destroy(productId);
-    }
-
     console.log('Cleaning up test orders...');
     for (const orderId of this.testOrderIds) {
-      // Assuming an `orders.destroy` method exists. Otherwise, implement if needed.
-      await destroy(orderId);
+      await destroyOrder(orderId);
+    }
+
+    console.log('Cleaning up test products...');
+    for (const productId of this.testProductIds) {
+      await destroyProduct(productId);
     }
 
     console.log('Test products and orders cleaned up successfully');

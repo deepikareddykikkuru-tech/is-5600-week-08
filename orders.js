@@ -72,6 +72,10 @@ async function edit(_id, change) {
   return order
 }
 
+async function destroy(_id) {
+  return await Order.deleteOne({ _id })
+}
+
 /**
  * Create an order
  * @param {Object} order
@@ -87,5 +91,6 @@ module.exports = {
   create,
   get,
   list,
-  edit
+  edit,
+  destroy
 }
